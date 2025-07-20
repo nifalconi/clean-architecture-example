@@ -1,0 +1,35 @@
+{
+  "name": "clean-architecture-example",
+  "version": "1.0.0",
+  "description": "A clean architecture example using TypeScript, Bun, MongoDB, and Zod",
+  "main": "src/presentation/api/server.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/presentation/api/server.ts",
+    "start": "bun run src/presentation/api/server.ts",
+    "example": "bun run example.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "clean-architecture",
+    "typescript",
+    "bun",
+    "mongodb",
+    "mongoose",
+    "zod",
+    "api",
+    "rest"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "mongoose": "^8.16.4",
+    "zod": "^4.0.5"
+  }
+}
