@@ -19,6 +19,7 @@ const validate = (request: unknown): RequestType => {
   }
 };
 
+// you could use cache here
 export const getTaskEndpoint =
   (useCase: GetTaskUseCaseInterface) =>
   async (request: unknown): Promise<Task> => {
