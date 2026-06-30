@@ -1,5 +1,7 @@
 import { Database } from '../../data/database';
-import { handler as getTaskHandler } from './get-task.endpoint';
+import { buildHandlers } from './composition-root';
+
+const handlers = buildHandlers();
 
 const server = Bun.serve({
   port: 3000,
@@ -19,7 +21,7 @@ const server = Bun.serve({
           throw new Error('Task ID is required');
         }
 
-        const task = await getTaskHandler({ params: { id } });
+        const task = await handlers.getTask({ params: { id } });
 
         return new Response(JSON.stringify({
           success: true,

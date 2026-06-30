@@ -1,7 +1,6 @@
 import { z } from 'zod';
-import { TaskRepository } from '../../data/repositories/task.repository';
 import type { Task } from '../../domain/entities/task.entity';
-import { GetTaskUseCase, type GetTaskUseCaseInterface } from '../../domain/use-cases/get-task.use-case';
+import type { GetTaskUseCaseInterface } from '../../domain/use-cases/get-task.use-case';
 
 const RequestSchema = z.object({
   params: z.object({
@@ -29,8 +28,3 @@ export const getTaskEndpoint =
 
     return useCase.execute(id);
   };
-
-const repository = new TaskRepository();
-const useCase = GetTaskUseCase(repository);
-
-export const handler = getTaskEndpoint(useCase);

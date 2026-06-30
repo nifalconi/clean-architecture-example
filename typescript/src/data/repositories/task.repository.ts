@@ -1,5 +1,6 @@
 import type { Task } from '../../domain/entities/task.entity';
 import type { TaskRepositoryInterface } from '../../domain/repository-interface/task.repository.interface';
+import { toEntity } from '../mappers/task.mapper';
 import { TaskModel } from '../models/task.model';
 
 export class TaskRepository implements TaskRepositoryInterface {
@@ -10,27 +11,22 @@ export class TaskRepository implements TaskRepositoryInterface {
     });
 
     const savedTask = await newTask.save();
-    return savedTask.toObject();
+    return toEntity(savedTask.toObject());
   }
 
   async findById(id: string): Promise<Task | null> {
-    const task = await TaskModel.findOne({ id }).lean();
-    return task;
+    const doc = await TaskModel.findOne({ id }).lean();
+    return doc ? toEntity(doc) : null;
   }
 
   async findAll(): Promise<Task[]> {
-    const tasks = await TaskModel.find({}).lean();
-    return tasks;
+    const docs = await TaskModel.find({}).lean();
+    return docs.map(toEntity);
   }
 
   async update(id: string, updates: Partial<Omit<Task, 'id'>>): Promise<Task | null> {
-    const updatedTask = await TaskModel.findOneAndUpdate(
-      { id },
-      updates,
-      { new: true, lean: true }
-    );
-
-    return updatedTask;
+    const doc = await TaskModel.findOneAndUpdate({ id }, updates, { new: true }).lean();
+    return doc ? toEntity(doc) : null;
   }
 
   async delete(id: string): Promise<boolean> {
