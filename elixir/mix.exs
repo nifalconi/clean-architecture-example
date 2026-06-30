@@ -6,6 +6,7 @@ defmodule CleanArchitectureExample.MixProject do
       app: :clean_architecture_example,
       version: "1.0.0",
       elixir: "~> 1.14",
+      elixirc_paths: ["lib", "domain", "data", "presentation"],
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: "A Clean Architecture example in Elixir",

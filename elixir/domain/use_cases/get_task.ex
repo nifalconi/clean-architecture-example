@@ -7,7 +7,6 @@ defmodule Domain.UseCases.GetTask do
   """
 
   alias Domain.Entities.Task
-  alias Domain.RepositoryInterfaces.TaskRepository
 
   @doc """
   Executes the get task use case.

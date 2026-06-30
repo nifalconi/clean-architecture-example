@@ -8,3 +8,7 @@ config :clean_architecture_example, CleanArchitectureExample.Repo,
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
+
+# Use the in-memory repository for tests — no database required.
+config :clean_architecture_example,
+  task_repository: Data.Repositories.InMemoryTaskRepository

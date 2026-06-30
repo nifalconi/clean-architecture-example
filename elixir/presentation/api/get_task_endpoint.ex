@@ -7,7 +7,6 @@ defmodule Presentation.Api.GetTaskEndpoint do
   """
 
   alias Domain.UseCases.GetTask
-  alias Data.Repositories.EctoTaskRepository
 
   @doc """
   Handles GET request for a task by ID.
@@ -43,6 +42,16 @@ defmodule Presentation.Api.GetTaskEndpoint do
 
   # Private functions
 
+  # Composition root: resolve the repository implementation from config so the
+  # concrete repo is never hardcoded into the presentation layer.
+  defp task_repository do
+    Application.get_env(
+      :clean_architecture_example,
+      :task_repository,
+      Data.Repositories.EctoTaskRepository
+    )
+  end
+
   defp validate_request(%{"id" => id}) when is_binary(id) and byte_size(id) > 0 do
     {:ok, %{id: id}}
   end
@@ -52,7 +61,7 @@ defmodule Presentation.Api.GetTaskEndpoint do
   end
 
   defp execute_use_case(%{id: id}) do
-    case GetTask.execute(EctoTaskRepository, id) do
+    case GetTask.execute(task_repository(), id) do
       {:ok, task} ->
         {:ok, %{
           success: true,

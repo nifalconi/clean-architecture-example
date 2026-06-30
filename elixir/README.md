@@ -5,7 +5,7 @@ This directory contains the same Clean Architecture example implemented in **Eli
 ## 🏗️ Architecture Overview
 
 ```text
-src2/
+elixir/
 ├── domain/                    # Enterprise Business Rules
 │   ├── entities/             # Domain entities (Task)
 │   ├── repository_interfaces/ # Repository contracts (behaviours)
@@ -41,7 +41,7 @@ src2/
 ## 🛠️ Installation
 
 ```bash
-cd src2
+cd elixir
 
 # Install dependencies
 mix deps.get
@@ -78,6 +78,32 @@ iex> {:ok, found_task} = Domain.UseCases.GetTask.execute(
 ...>   task.id
 ...> )
 ```
+
+## 🧪 Running the Tests
+
+The test suite runs against the in-memory repository, so **no database is
+required**:
+
+```bash
+mix test
+```
+
+This works because the repository implementation is resolved from config (the
+composition root), and `config/test.exs` swaps in
+`Data.Repositories.InMemoryTaskRepository`:
+
+```elixir
+# config/config.exs — production default
+config :clean_architecture_example,
+  task_repository: Data.Repositories.EctoTaskRepository
+
+# config/test.exs — no DB needed
+config :clean_architecture_example,
+  task_repository: Data.Repositories.InMemoryTaskRepository
+```
+
+The presentation layer never names a concrete repository; it reads
+`Application.get_env(:clean_architecture_example, :task_repository)`.
 
 ## 🏛️ Architecture Layers (Elixir Style)
 
@@ -160,7 +186,7 @@ Task Retrieved: %Domain.Entities.Task{id: "task_a1b2c3d4", name: "Learn Clean Ar
 
 ## 🔄 Comparison with TypeScript Version
 
-| Aspect | TypeScript (src/) | Elixir (src2/) |
+| Aspect | TypeScript (typescript/) | Elixir (elixir/) |
 |--------|------------------|----------------|
 | **Type System** | Static typing | Dynamic with specs |
 | **Error Handling** | Exceptions | Result tuples |

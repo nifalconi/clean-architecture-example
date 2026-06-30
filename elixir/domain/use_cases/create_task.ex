@@ -7,7 +7,6 @@ defmodule Domain.UseCases.CreateTask do
   """
 
   alias Domain.Entities.Task
-  alias Domain.RepositoryInterfaces.TaskRepository
 
   @doc """
   Executes the create task use case.
