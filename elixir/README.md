@@ -2,6 +2,11 @@
 
 This directory contains the same Clean Architecture example implemented in **Elixir** with **Ecto**, demonstrating functional programming principles, database persistence, and OTP (Open Telecom Platform) patterns.
 
+> 📖 **Want the *why*, not just the *what*?** See **[PHILOSOPHY.md](PHILOSOPHY.md)** —
+> a deep dive on how Clean Architecture's Dependency Rule is adapted to Elixir,
+> and why dependency inversion here comes from runtime module passing, not the
+> `@behaviour` keyword.
+
 ## 🏗️ Architecture Overview
 
 ```text
