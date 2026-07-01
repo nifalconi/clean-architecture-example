@@ -12,3 +12,7 @@ config :clean_architecture_example, CleanArchitectureExample.Repo,
 # Use the in-memory repository for tests — no database required.
 config :clean_architecture_example,
   task_repository: Data.Repositories.InMemoryTaskRepository
+
+# Bind the HTTP server to a random free port during tests.
+config :clean_architecture_example,
+  http_port: 0

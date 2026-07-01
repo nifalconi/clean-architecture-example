@@ -12,11 +12,13 @@ elixir/
 │   └── use_cases/            # Application business rules
 ├── data/                     # Infrastructure Layer
 │   ├── models/              # Ecto schemas
-│   └── repositories/         # Repository implementations (Ecto)
+│   └── repositories/         # Ecto + in-memory implementations
 ├── presentation/             # Interface Adapters
-│   └── api/                  # HTTP endpoints
+│   └── api/                  # Plug router + endpoint handlers
 ├── lib/                      # Application setup
-│   └── application.ex        # OTP Application
+│   ├── application.ex        # OTP Application (starts Repo + HTTP server)
+│   └── repo.ex               # Ecto repo
+├── test/                     # ExUnit tests (run against in-memory repo)
 ├── mix.exs                   # Project configuration
 ├── example.exs               # Runnable example
 └── README.md                 # This file
@@ -78,6 +80,25 @@ iex> {:ok, found_task} = Domain.UseCases.GetTask.execute(
 ...>   task.id
 ...> )
 ```
+
+## 🌐 Running the HTTP Server
+
+The OTP application starts a [Bandit](https://github.com/mtrudel/bandit) HTTP
+server (via a `Plug.Router`) alongside the Ecto repo:
+
+```bash
+iex -S mix
+# or: mix run --no-halt
+```
+
+The server listens on port `4000` (configurable via `:http_port`):
+
+```bash
+curl http://localhost:4000/api/tasks/<id>
+```
+
+The router is deliberately thin — it only maps HTTP to the endpoint's
+`handle/1` + `format_response/1` and holds no business logic.
 
 ## 🧪 Running the Tests
 

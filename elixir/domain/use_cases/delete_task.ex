@@ -6,8 +6,6 @@ defmodule Domain.UseCases.DeleteTask do
   following the Clean Architecture principles.
   """
 
-  alias Domain.RepositoryInterfaces.TaskRepository
-
   @doc """
   Executes the delete task use case.
   

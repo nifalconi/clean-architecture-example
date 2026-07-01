@@ -7,7 +7,6 @@ defmodule Domain.UseCases.UpdateTask do
   """
 
   alias Domain.Entities.Task
-  alias Domain.RepositoryInterfaces.TaskRepository
 
   @doc """
   Executes the update task use case.

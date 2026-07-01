@@ -26,6 +26,8 @@ defmodule CleanArchitectureExample.MixProject do
     [
       {:ecto_sql, "~> 3.10"},
       {:postgrex, "~> 0.17"},
+      {:bandit, "~> 1.5"},
+      {:plug, "~> 1.16"},
       {:jason, "~> 1.4"},
       {:ex_doc, "~> 0.31", only: :dev, runtime: false}
     ]

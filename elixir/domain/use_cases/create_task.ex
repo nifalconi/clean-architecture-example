@@ -33,19 +33,10 @@ defmodule Domain.UseCases.CreateTask do
   def execute(repository, name, date) do
     task = Task.new(name, date)
 
-    case Task.valid?(task) do
-      true ->
-        case repository.create(task) do
-          {:ok, created_task} ->
-            IO.puts("Task Created: #{inspect(created_task)}")
-            {:ok, created_task}
-
-          {:error, reason} ->
-            {:error, reason}
-        end
-
-      false ->
-        {:error, :invalid_task}
+    if Task.valid?(task) do
+      repository.create(task)
+    else
+      {:error, :invalid_task}
     end
   end
 end

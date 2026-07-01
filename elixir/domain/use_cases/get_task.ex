@@ -30,17 +30,7 @@ defmodule Domain.UseCases.GetTask do
   """
   @spec execute(module(), String.t()) :: {:ok, Task.t()} | {:error, :not_found | term()}
   def execute(repository, id) when is_binary(id) and byte_size(id) > 0 do
-    case repository.find_by_id(id) do
-      {:ok, task} ->
-        IO.puts("Task Retrieved: #{inspect(task)}")
-        {:ok, task}
-
-      {:error, :not_found} ->
-        {:error, :not_found}
-
-      {:error, reason} ->
-        {:error, reason}
-    end
+    repository.find_by_id(id)
   end
 
   def execute(_repository, _id) do

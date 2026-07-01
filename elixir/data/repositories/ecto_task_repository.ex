@@ -6,8 +6,6 @@ defmodule Data.Repositories.EctoTaskRepository do
   implementing the TaskRepository behaviour.
   """
 
-  import Ecto.Query
-  
   alias CleanArchitectureExample.Repo
   alias Data.Models.Task, as: TaskModel
   alias Domain.Entities.Task
